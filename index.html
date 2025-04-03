@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zahlenratenspiel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, blue, lightblue);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        input {
+            padding: 10px;
+            font-size: 1.2rem;
+            border: 2px solid blue;
+            border-radius: 5px;
+            text-align: center;
+            width: 200px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: #ff758c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #ff5252;
+        }
+
+        p {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Zahlenratenspiel</h1>
+    <input type="number" id="guessInput" placeholder="Gib eine Zahl ein">
+    <button onclick="sendGuess()">Raten</button>
+    <p id="result"></p>
+
+    <script>
+        let targetNumber = Math.floor(Math.random() * 100) + 1; // Zufallszahl zwischen 1 und 100
+
+        function sendGuess() {
+            const input = document.getElementById('guessInput').value;
+            const number = Number(input);
+
+            if (isNaN(number) || number < 1 || number > 100) {
+                document.getElementById('result').textContent = 'Bitte eine Zahl zwischen 1 und 100 eingeben!';
+                document.getElementById('result').style.color = 'yellow';
+                return;
+            }
+
+            if (number < targetNumber) {
+                document.getElementById('result').textContent = 'Zu niedrig!';
+                document.getElementById('result').style.color = 'blue';
+            } else if (number > targetNumber) {
+                document.getElementById('result').textContent = 'Zu hoch!';
+                document.getElementById('result').style.color = 'red';
+            } else {
+                document.getElementById('result').textContent = '🎉 Richtig geraten! Neue Zahl wird generiert...';
+                document.getElementById('result').style.color = 'green';
+                targetNumber = Math.floor(Math.random() * 100) + 1; // Neue Zahl generieren
+            }
+        }
+    </script>
+</body>
+</html>
